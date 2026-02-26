@@ -7,6 +7,8 @@ import contactRoutes from "./routes/contactRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import applicationRoutes from "./routes/applicationRoutes.js";
 import blogRoutes from "./routes/blogRoutes.js";
+import taskRoutes from './routes/taskRoutes.js';
+import teamRoutes from './routes/teamRoutes.js'
 
 dotenv.config();
 connectDB();
@@ -21,8 +23,8 @@ app.use("/api/contacts", contactRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/blogs", blogRoutes);
-
-
+app.use("/api/task",taskRoutes)
+app.use("/api/team",teamRoutes)
 
 app.get("/", (req, res) => {
   res.json({ message: "API running..." });

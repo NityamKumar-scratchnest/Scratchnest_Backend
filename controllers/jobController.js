@@ -4,13 +4,16 @@ import Application from "../models/Application.js";
 // ADD JOB
 export const addJob = async (req, res) => {
   try {
-    const { title, description, location, salaryRange } = req.body;
+    const { title, description, location, salaryRange, experience, subTitle, skills } = req.body;
 
     const job = await Job.create({
       title,
       description,
       location,
-      salaryRange
+      salaryRange,
+      experience,
+      subTitle,
+      skills
     });
 
     res.json({ message: "Job added successfully", job });
