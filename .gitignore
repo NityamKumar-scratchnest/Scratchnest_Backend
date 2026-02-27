@@ -61,3 +61,4 @@ postman/
 
 # Optional: ignore uploads if you store files locally
 uploads/
+.env
