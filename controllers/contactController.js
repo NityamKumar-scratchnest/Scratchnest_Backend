@@ -1,10 +1,10 @@
 import Contact from "../models/Contact.js";
+import sendMail from "../utils/sendMail.js";
 
 
 export const addContact = async (req, res) => {
   try {
     const { name, email, phone, message, reason } = req.body;
-
     const contact = await Contact.create({
       name,
       email,
@@ -12,7 +12,7 @@ export const addContact = async (req, res) => {
       message,
       reason
     });
-
+    await sendMail({name , email , phone , message , reason})
     res.json({
       message: "Contact request submitted",
       contact
