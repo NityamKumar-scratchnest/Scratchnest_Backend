@@ -22,6 +22,51 @@ export const addJob = async (req, res) => {
   }
 };
 
+export const updateJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const {
+      title,
+      description,
+      location,
+      salaryRange,
+      experience,
+      subTitle,
+      skills
+    } = req.body;
+
+    const job = await Job.findById(id);
+
+    if (!job) {
+      return res.status(404).json({
+        message: "Job not found"
+      });
+    }
+    
+    job.title = title ?? job.title;
+    job.description = description ?? job.description;
+    job.location = location ?? job.location;
+    job.salaryRange = salaryRange ?? job.salaryRange;
+    job.experience = experience ?? job.experience;
+    job.subTitle = subTitle ?? job.subTitle;
+    job.skills = skills ?? job.skills;
+
+    await job.save();
+
+    res.json({
+      message: "Job updated successfully",
+      job
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      message: "Failed to update job",
+      error: err.message
+    });
+  }
+};
+
 // PUBLIC JOB LIST (ONLY OPEN + NOT DELETED)
 export const getJobs = async (req, res) => {
   const jobs = await Job.find({ status: "open", deleted: false }).sort({ createdAt: -1 });
